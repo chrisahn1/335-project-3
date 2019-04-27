@@ -24,8 +24,11 @@ These are functions that will be used throughout the program. They have not been
 
 ### Part 0 - Setup
 
+
 - We will create a 2D grid array that contains all cells. The elements in the array will be the capacities of each cell, which are randomly generated.
-  - 
+  - I've written the code for this [here](https://pastebin.com/yC4Cp72X)
+- Draw the grid using the code from Project 1 and modifying it.
+- Each grid cell needs to show its capacity, so the cells will be represented as grid boxes. This means knight movement will take place from the middle of each grid cell, not from the line intersections.
 
 ### Part 1 - Finding "Maximum Possible Flow"
 
