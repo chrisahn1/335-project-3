@@ -4,23 +4,7 @@ Last revised April 27, 2019
 
 
 
-### Variables Used
 
-- **maxPossibleFlow**: the highest flow attainable, according to the edge capacities of the source and sink. See Part 1 for more info.
-- **lastDistances**: While the knight is moving, this variable contains the three most recent distances from its position to the sink position. This is used in `isMovingAway()` to determine if the knight is approaching the sink.
-- **referenceFlow**: This will contain the flow of the first path, which is used as a starting point to weed out any paths with a flow less than this number (remember, the goal is to find the max flow).
-
-### Functions Used
-
-These are functions that will be used throughout the program. They have not been coded yet.
-
-- `findMoveCloserToSink(knightCoords, sinkCoords)`: (This will be used to move the knight in **Part 2**, the first path) Given the coordinates of the knight and the sink, return the best move for getting the knight closer to the sink. In this function, we don't care about edge capacities. 
-  - For example, if the knight is at [3, 3] and the sink is at [7, 5], it's further away horizontally, so its next move should be [5, 4]. I've also included clever conditions for when the knight gets closer, e.g. [6, 4] -> [8, 3] -> [7, 5].
-  - I have this function mostly written out already, and will push it to the repository soon. 
-- `findNextPossibleMoves(knightCoords, maxPossibleFlow)`: (This will be used to move the knight in **Part 3**, and does consider edge capacities) Given an array of coordinates `[x, y]`, it will return all possible knight moves from that location, sorting them by their edge capacities. If **maxPossibleFlow** is given, those with edge capacities >= **maxPossibleFlow** will all be considered the same, with regards to sorting.
-  - This is because the max possible flow sets an upper bound that cannot be broken by any edge capacity. For example, if the max possible flow is 10, it is useless to compare two edges with capacities of 12 and 14.
-- `isMovingAway(lastDistances)`: Every time the knight moves, an int is pushed to the **lastDistances** array containing the distance between its location and the sink. **lastDistances** will always contain three ints. This function, given the **lastDistances**, will detect whether or not the knight is moving further away from the sink by comparing all three numbers. If they are ascending, the function **returns** `true`, and the knight will move back. 
-  - It's possible that **lastDistances** should contain two numbers instead of three. We'll have to test that out to see what works.
 
 ### Part 0 - Setup
 
@@ -62,4 +46,24 @@ Now that we have a working path, and we know the flow of this path, we can make 
 
 
 Using this method, we are consistently checking each move as we form the path to make sure we are selecting nodes with the greatest edge capacities, while also using the `isMovingAway()` function to make sure we approach the point.
+
+
+
+### Variable Reference
+
+- **maxPossibleFlow**: the highest flow attainable, according to the edge capacities of the source and sink. See Part 1 for more info.
+- **lastDistances**: While the knight is moving, this variable contains the three most recent distances from its position to the sink position. This is used in `isMovingAway()` to determine if the knight is approaching the sink.
+- **referenceFlow**: This will contain the flow of the first path, which is used as a starting point to weed out any paths with a flow less than this number (remember, the goal is to find the max flow).
+
+### Function Reference
+
+These are functions that will be used throughout the program. They have not been coded yet.
+
+- `findMoveCloserToSink(knightCoords, sinkCoords)`: (This will be used to move the knight in **Part 2**, the first path) Given the coordinates of the knight and the sink, return the best move for getting the knight closer to the sink. In this function, we don't care about edge capacities. 
+  - For example, if the knight is at [3, 3] and the sink is at [7, 5], it's further away horizontally, so its next move should be [5, 4]. I've also included clever conditions for when the knight gets closer, e.g. [6, 4] -> [8, 3] -> [7, 5].
+  - I have this function mostly written out already, and will push it to the repository soon. 
+- `findNextPossibleMoves(knightCoords, maxPossibleFlow)`: (This will be used to move the knight in **Part 3**, and does consider edge capacities) Given an array of coordinates `[x, y]`, it will return all possible knight moves from that location, sorting them by their edge capacities. If **maxPossibleFlow** is given, those with edge capacities >= **maxPossibleFlow** will all be considered the same, with regards to sorting.
+  - This is because the max possible flow sets an upper bound that cannot be broken by any edge capacity. For example, if the max possible flow is 10, it is useless to compare two edges with capacities of 12 and 14.
+- `isMovingAway(lastDistances)`: Every time the knight moves, an int is pushed to the **lastDistances** array containing the distance between its location and the sink. **lastDistances** will always contain three ints. This function, given the **lastDistances**, will detect whether or not the knight is moving further away from the sink by comparing all three numbers. If they are ascending, the function **returns** `true`, and the knight will move back. 
+  - It's possible that **lastDistances** should contain two numbers instead of three. We'll have to test that out to see what works.
 
