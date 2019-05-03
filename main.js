@@ -1,155 +1,74 @@
-let startingPoint = [2, 2]
-let destination = [4, 7]
-let rule = [1, 10]
+let startingPoint = [2, 2];
+let destination = [4, 7];
+let gridBoundaries = [1, 10];
 
-let stack = []
+let stack = [];
+
+const moveDirections = [
+  [-2, -1], [2, -1], [-2, 1], [2, 1], [-1, -2], [1, -2], [-1, 2], [1, 2]
+];
 
 function containsPoint (current, stack) {
   for (let i = 0; i < stack.length; i++) {
     if (current === stack[i]) {
-      return true
+      return true;
     }
   }
-  return false
+  return false;
+}
+
+function formatPoint(point) {
+  return {
+    x: point[0],
+    y: point[1]
+  };
+}
+
+function inBounds(point) {
+  return (
+    point[0] >= gridBoundaries[0] &&
+    point[0] <= gridBoundaries[1] &&
+    point[1] >= gridBoundaries[0] &&
+    point[1] <= gridBoundaries[1]
+  );
 }
 
 function knightMovement (point) {
-  var found = false
-  let prevPoint = point
+  var found = false;
+  let currentPoint = point;
+  let newPoint, direction;
 
-  var currentPoint = {}
-  prevPoint[0] = prevPoint[0] - 2
-  prevPoint[1] = prevPoint[1] - 1
-  currentPoint['x'] = prevPoint[0]
-  currentPoint['y'] = prevPoint[1]
-  stack.push(currentPoint)
+  currentPoint[0] -= 2;
+  currentPoint[1] -= 1;
+  stack.push(formatPoint(currentPoint));
 
   while (found === false) {
+    console.log(formatPoint(currentPoint));
     if (found === true) {
-      console.log(currentPoint)
-      break
+      console.log(formatPoint(currentPoint));
+      break;
     }
-    currentPoint = {}
-    if ((prevPoint[0] - 2) >= rule[0] && (prevPoint[0] - 2) <= rule[1] && (prevPoint[1] - 1) >= rule[0] && (prevPoint[1] - 1) <= rule[1]) {
-      // -2 -1
-      prevPoint[0] = prevPoint[0] - 2
-      prevPoint[1] = prevPoint[1] - 1
-      currentPoint['x'] = prevPoint[0]
-      currentPoint['y'] = prevPoint[1]
-      if (currentPoint === destination) {
-        console.log(currentPoint)
-        found = true
-        break
-      }
-      if (containsPoint(currentPoint, stack) === false) {
-        stack.push(currentPoint)
-      }
-    } else if ((prevPoint[0] + 2) >= rule[0] && (prevPoint[0] + 2) <= rule[1] && (prevPoint[1] - 1) >= rule[0] && (prevPoint[1] - 1) <= rule[1]) {
-      // +2 -1
-      prevPoint[0] = prevPoint[0] + 2
-      prevPoint[1] = prevPoint[1] - 1
-      currentPoint['x'] = prevPoint[0]
-      currentPoint['y'] = prevPoint[1]
-      if (currentPoint === destination) {
-        console.log(currentPoint)
-        found = true
-        break
-      }
-      if (containsPoint(currentPoint, stack) === false) {
-        stack.push(currentPoint)
-      }
-    } else if ((prevPoint[0] - 2) >= rule[0] && (prevPoint[0] - 2) <= rule[1] && (prevPoint[1] + 1) >= rule[0] && (prevPoint[1] + 1) <= rule[1]) {
-      // -2 +1
-      prevPoint[0] = prevPoint[0] - 2
-      prevPoint[1] = prevPoint[1] + 1
-      currentPoint['x'] = prevPoint[0]
-      currentPoint['y'] = prevPoint[1]
-      if (currentPoint === destination) {
-        console.log(currentPoint)
-        found = true
-        break
-      }
-      if (containsPoint(currentPoint, stack) === false) {
-        stack.push(currentPoint)
-      }
-    } else if ((prevPoint[0] + 2) >= rule[0] && (prevPoint[0] + 2) <= rule[1] && (prevPoint[1] + 1) >= rule[0] && (prevPoint[1] + 1) <= rule[1]) {
-      // +2 +1
-      prevPoint[0] = prevPoint[0] + 2
-      prevPoint[1] = prevPoint[1] + 1
-      currentPoint['x'] = prevPoint[0]
-      currentPoint['y'] = prevPoint[1]
-      if (currentPoint === destination) {
-        console.log(currentPoint)
-        found = true
-        break
-      }
-      if (containsPoint(currentPoint, stack) === false) {
-        stack.push(currentPoint)
-      }
-    } else if ((prevPoint[0] - 1) >= rule[0] && (prevPoint[0] - 1) <= rule[1] && (prevPoint[1] - 2) >= rule[0] && (prevPoint[1] - 2) <= rule[1]) {
-      // -1 -2
-      prevPoint[0] = prevPoint[0] - 1
-      prevPoint[1] = prevPoint[1] - 2
-      currentPoint['x'] = prevPoint[0]
-      currentPoint['y'] = prevPoint[1]
-      if (currentPoint === destination) {
-        console.log(currentPoint)
-        found = true
-        break
-      }
-      if (containsPoint(currentPoint, stack) === false) {
-        stack.push(currentPoint)
-      }
-    } else if ((prevPoint[0] + 1) >= rule[0] && (prevPoint[0] + 1) <= rule[1] && (prevPoint[1] - 2) >= rule[0] && (prevPoint[1] - 2) <= rule[1]) {
-      // +1 -2
-      prevPoint[0] = prevPoint[0] + 1
-      prevPoint[1] = prevPoint[1] - 2
-      currentPoint['x'] = prevPoint[0]
-      currentPoint['y'] = prevPoint[1]
-      if (currentPoint === destination) {
-        console.log(currentPoint)
-        found = true
-        break
-      }
-      if (containsPoint(currentPoint, stack) === false) {
-        stack.push(currentPoint)
-      }
-    } else if ((prevPoint[0] - 1) >= rule[0] && (prevPoint[0] - 1) <= rule[1] && (prevPoint[1] + 2) >= rule[0] && (prevPoint[1] + 2) <= rule[1]) {
-      // -1 +2
-      prevPoint[0] = prevPoint[0] - 1
-      prevPoint[1] = prevPoint[1] + 2
-      currentPoint['x'] = prevPoint[0]
-      currentPoint['y'] = prevPoint[1]
-      if (currentPoint === destination) {
-        console.log(currentPoint)
-        found = true
-        break
-      }
-      if (containsPoint(currentPoint, stack) === false) {
-        stack.push(currentPoint)
-      }
-    } else if ((prevPoint[0] + 1) >= rule[0] && (prevPoint[0] + 1) <= rule[1] && (prevPoint[1] + 2) >= rule[0] && (prevPoint[1] + 2) <= rule[1]) {
-      // +1 +2
-      prevPoint[0] = prevPoint[0] + 1
-      prevPoint[1] = prevPoint[1] + 2
-      currentPoint['x'] = prevPoint[0]
-      currentPoint['y'] = prevPoint[1]
-      if (currentPoint === destination) {
-        console.log(currentPoint)
-        found = true
-        break
-      }
-      if (containsPoint(currentPoint, stack) === false) {
-        stack.push(currentPoint)
+    
+    for(let i = 0; i < moveDirections.length; i++) {
+      direction = moveDirections[i];
+      newPoint = [currentPoint[0] + direction[0], currentPoint[1] + direction[1]];
+      if(inBounds(newPoint)) {
+        currentPoint = newPoint;
+        break;
       }
     }
-    if (currentPoint === destination) {
-      found = true
+    if (containsPoint(formatPoint(currentPoint), stack) === false) {
+      stack.push(formatPoint(currentPoint));
+    }
+    if(currentPoint === destination) {
+      console.log(formatPoint(currentPoint));
+      found = true;
+      break;
     }
   }
 };
 
 knightMovement(startingPoint)
-// for (let i = 0; i < stack.length; i++) {
-//   console.log(stack[i])
-// }
+for (let i = 0; i < stack.length; i++) {
+  console.log(stack[i]);
+}
