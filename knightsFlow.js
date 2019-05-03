@@ -146,6 +146,33 @@ function isMovingAway(lastDistances) {
       &&  lastDistances[1] > lastDistances[0]);
 }
 
+function flow(stack, grid) {
+  return stack.reduce((acc, point, idx) => {
+    if(idx == 1) {
+      return 1000;
+    }
+    else {
+      let edgeCapacity = (grid[point['x']][point['y']] + grid[stack[idx-1]['x']][stack[idx-1]['y']]) / 2;
+      return Math.min(acc, edgeCapacity);
+    }
+  });
+}
+
+// TODO: copy/paste grid code from project 1; draw source, sink, and knight path on it
+
+// ALGORITHM PART 1
+function findMaxPossibleFlow(grid) {
+  let sourceEdges = findNextPossibleMoves(source, grid);
+  let sourceMaxEdge = sourceEdges[0];
+  let sourceMaxEdgeCapacity = (grid[source[0], source[1]] + grid[sourceMaxEdge[0], sourceMaxEdge[1]]) / 2;
+
+  let sinkEdges = findNextPossibleMoves(sink, grid);
+  let sinkMaxEdge = sinkEdges[0];
+  let sinkMaxEdgeCapacity = (grid[sink[0], sink[1]] + grid[sinkMaxEdge[0], sinkMaxEdge[1]]) / 2;
+
+  return Math.max(sourceMaxEdgeCapacity, sinkMaxEdgeCapacity);
+}
+
 // ALGORITHM PART 2
 function findQuickPath(point, destination) {
   var found = false;
@@ -173,7 +200,16 @@ function findQuickPath(point, destination) {
   }
 };
 
+// TODO: ALGORITHM PART 3
+// use the existing findNextPossibleMoves() and isMovingAway() functions
+// the only hard part is figuring out DFS traversal
+function findBestPath(point, destination) {
+
+}
+
+grid = createGrid();
 findQuickPath(source, sink);
+console.log(flow(stack, grid));
 for (let i = 0; i < stack.length; i++) {
   // console.log(stack[i]);
 }
