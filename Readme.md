@@ -10,7 +10,7 @@ Last revised April 27, 2019
 
 
 - We will create a 2D grid array that contains all cells. The elements in the array will be the capacities of each cell, which are randomly generated.
-  - I've written the code for this [here](https://pastebin.com/yC4Cp72X)
+  - This is already done in the createGrid() function.
 - Draw the grid using the code from Project 1 and modifying it.
 - Each grid cell needs to show its capacity, so the cells will be represented as grid boxes. This means knight movement will take place from the middle of each grid cell, not from the line intersections.
 
@@ -61,7 +61,6 @@ These are functions that will be used throughout the program. They have not been
 
 - `findMoveCloserToSink(knightCoords, sinkCoords)`: (This will be used to move the knight in **Part 2**, the first path) Given the coordinates of the knight and the sink, return the best move for getting the knight closer to the sink. In this function, we don't care about edge capacities. 
   - For example, if the knight is at [3, 3] and the sink is at [7, 5], it's further away horizontally, so its next move should be [5, 4]. I've also included clever conditions for when the knight gets closer, e.g. [6, 4] -> [8, 3] -> [7, 5].
-  - I have this function mostly written out already, and will push it to the repository soon. 
 - `findNextPossibleMoves(knightCoords, maxPossibleFlow)`: (This will be used to move the knight in **Part 3**, and does consider edge capacities) Given an array of coordinates `[x, y]`, it will return all possible knight moves from that location, sorting them by their edge capacities. If **maxPossibleFlow** is given, those with edge capacities >= **maxPossibleFlow** will all be considered the same, with regards to sorting.
   - This is because the max possible flow sets an upper bound that cannot be broken by any edge capacity. For example, if the max possible flow is 10, it is useless to compare two edges with capacities of 12 and 14.
 - `isMovingAway(lastDistances)`: Every time the knight moves, an int is pushed to the **lastDistances** array containing the distance between its location and the sink. **lastDistances** will always contain three ints. This function, given the **lastDistances**, will detect whether or not the knight is moving further away from the sink by comparing all three numbers. If they are ascending, the function **returns** `true`, and the knight will move back. 
